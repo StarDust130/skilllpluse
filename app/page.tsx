@@ -133,6 +133,7 @@ const Navbar = () => {
 };
 
 // --- HERO COMPONENT ---
+// --- HERO COMPONENT (FIXED: Visible Terminal on PC + Great Mobile View) ---
 const Hero = () => {
   const router = useRouter();
 
@@ -141,31 +142,15 @@ const Hero = () => {
   const [showOffer, setShowOffer] = useState(false);
 
   useEffect(() => {
-    // The "Lock In" Sequence
     const sequence = [
       { id: 1, text: "> git commit -m 'broke up with gf'", type: "dim" },
       { id: 2, text: "→ STATUS: SINGLE & BROKE 💸", type: "error", delay: 800 },
       { id: 3, text: "> check_bank_balance.exe", type: "cmd", delay: 1600 },
-      {
-        id: 4,
-        text: "⚠ BALANCE: ₹ 150.00 (Critical)",
-        type: "warn",
-        delay: 2400,
-      },
-      {
-        id: 5,
-        text: "> initializing LOCK_IN_MODE 🔒",
-        type: "highlight",
-        delay: 3200,
-      },
+      { id: 4, text: "⚠ BALANCE: ₹ 150.00 (Critical)", type: "warn", delay: 2400 },
+      { id: 5, text: "> initializing LOCK_IN_MODE 🔒", type: "highlight", delay: 3200 },
       { id: 6, text: "→ deleting_instagram...", type: "log", delay: 4000 },
       { id: 7, text: "→ installing_SkillPulse...", type: "log", delay: 4500 },
-      {
-        id: 8,
-        text: "★ SKIN UNLOCKED: EMPLOYED 👔",
-        type: "success",
-        delay: 5500,
-      },
+      { id: 8, text: "★ SKIN UNLOCKED: EMPLOYED 👔", type: "success", delay: 5500 },
     ];
 
     let timeouts: NodeJS.Timeout[] = [];
@@ -174,7 +159,7 @@ const Hero = () => {
       const timeout = setTimeout(() => {
         setLines((prev) => [...prev, line]);
         if (line.type === "success") {
-          setTimeout(() => setShowOffer(true), 500);
+            setTimeout(() => setShowOffer(true), 500);
         }
       }, line.delay || 0);
       timeouts.push(timeout);
@@ -195,13 +180,13 @@ const Hero = () => {
       />
 
       {/* Blobby Background */}
-      <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-blue-300 rounded-full mix-blend-multiply filter blur-[128px] opacity-40 animate-blob"></div>
-      <div className="absolute top-1/2 right-1/4 w-96 h-96 bg-red-300 rounded-full mix-blend-multiply filter blur-[128px] opacity-40 animate-blob animation-delay-2000"></div>
+      <div className="absolute top-1/2 left-1/4 w-64 h-64 md:w-96 md:h-96 bg-blue-300 rounded-full mix-blend-multiply filter blur-[80px] md:blur-[128px] opacity-40 animate-blob"></div>
+      <div className="absolute top-1/2 right-1/4 w-64 h-64 md:w-96 md:h-96 bg-red-300 rounded-full mix-blend-multiply filter blur-[80px] md:blur-[128px] opacity-40 animate-blob animation-delay-2000"></div>
 
-      <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-16 items-center relative z-10">
+      <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-12 items-center relative z-10">
         {/* LEFT: TEXT CONTENT */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
+          initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
           className="text-left relative z-20"
@@ -246,44 +231,52 @@ const Hero = () => {
           </div>
         </motion.div>
 
-        {/* RIGHT: THE TERMINAL (Hidden on mobile) */}
-        <div className="relative h-[480px] w-full flex justify-center items-center">
-          {/* Mobile Only: Simple Floating Card (Shows on mobile when terminal is hidden) */}
+        {/* RIGHT: THE TERMINAL (PC) & CARD (MOBILE) */}
+        <div className="relative h-[400px] md:h-[480px] w-full flex justify-center items-center">
+          {/* --- MOBILE VIEW: Only Show the Result Card (Cleaner) --- */}
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.5 }}
-            className="block lg:hidden absolute w-full max-w-xs"
+            transition={{ delay: 0.2 }}
+            className="block lg:hidden absolute w-full max-w-sm z-30"
           >
             <div className="relative bg-yellow-400 p-1 rounded-2xl border-4 border-black shadow-[8px_8px_0px_0px_#000]">
               <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-yellow-400 text-black border-2 border-black px-4 py-1 rounded-full whitespace-nowrap z-20">
-                <span className="font-black text-xs uppercase">
-                  🏆 GOAL UNLOCKED
+                <span className="font-black text-xs uppercase tracking-widest">
+                  👑 LEGENDARY DROP
                 </span>
               </div>
-              <div className="bg-white p-5 rounded-xl border-2 border-black relative">
+              <div className="bg-white p-6 rounded-xl border-2 border-black relative">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-black rounded-lg flex items-center justify-center border-2 border-black text-yellow-400 text-xl shadow-sm">
+                  <div className="w-14 h-14 bg-black rounded-lg flex items-center justify-center border-2 border-black text-yellow-400 text-2xl shadow-sm">
                     🚀
                   </div>
                   <div>
-                    <h3 className="font-black text-xl text-black leading-none">
-                      Senior Dev
+                    <h3 className="font-black text-sm text-black leading-none">
+                      Full Stack Copy-Paster
                     </h3>
-                    <p className="text-xs font-bold text-slate-500 mt-1 uppercase">
+                    <p className="text-xs font-bold text-slate-500 mt-1 uppercase tracking-wide">
                       ₹ 15 LPA • Remote
                     </p>
                   </div>
+                </div>
+                <div className="mt-4 pt-4 border-t-2 border-slate-100 flex justify-between items-center">
+                  <span className="text-xs font-bold text-slate-400 uppercase">
+                    Status:
+                  </span>
+                  <span className="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-black border border-green-200">
+                    HIRED ✅
+                  </span>
                 </div>
               </div>
             </div>
           </motion.div>
 
-          {/* Desktop Only: Full Interactive Terminal */}
+          {/* --- DESKTOP VIEW: Full Terminal + Animation --- */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, type: "spring", bounce: 0.4 }}
+            transition={{ duration: 0.8 }}
             className="hidden lg:flex relative w-full max-w-lg bg-[#0d0d0d] rounded-xl border-4 border-black shadow-[16px_16px_0px_0px_#000] overflow-hidden flex-col z-10"
           >
             {/* Header */}
@@ -354,7 +347,7 @@ const Hero = () => {
             </div>
           </motion.div>
 
-          {/* THE "LIGHT MODE LEGENDARY" CARD (Desktop Pop-up) */}
+          {/* DESKTOP POP-UP CARD */}
           <AnimatePresence>
             {showOffer && (
               <motion.div
@@ -364,18 +357,13 @@ const Hero = () => {
                 className="hidden lg:block absolute -right-8 bottom-10 z-50 w-80 cursor-pointer group"
                 whileHover={{ scale: 1.05, rotate: 0 }}
               >
-                {/* Outer Frame */}
                 <div className="relative bg-yellow-400 p-1 rounded-2xl border-4 border-black shadow-[12px_12px_0px_0px_#000]">
-                  {/* Rarity Badge */}
                   <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-yellow-400 text-black border-4 border-black px-4 py-1 rounded-full whitespace-nowrap z-20 shadow-sm">
                     <span className="font-black text-xs uppercase tracking-widest flex items-center gap-1">
                       💎 LEGENDARY DROP
                     </span>
                   </div>
-
-                  {/* Card Body */}
                   <div className="bg-white p-5 rounded-xl border-2 border-black relative overflow-hidden">
-                    {/* Holographic Sheen Animation */}
                     <motion.div
                       animate={{ x: ["-100%", "200%"] }}
                       transition={{
@@ -386,21 +374,19 @@ const Hero = () => {
                       }}
                       className="absolute top-0 bottom-0 w-20 bg-gradient-to-r from-transparent via-blue-200/50 to-transparent skew-x-12 z-0"
                     />
-
                     <div className="relative z-10 flex items-center gap-4 mt-2">
                       <div className="w-14 h-14 bg-black rounded-lg flex items-center justify-center border-2 border-black text-yellow-400 text-2xl shadow-sm">
                         🚀
                       </div>
                       <div>
-                        <h3 className="font-black text-xl text-black leading-none">
-                          Senior Dev
+                        <h3 className="font-black text-sm text-black leading-none">
+                          Full Stack Copy-Paster
                         </h3>
                         <p className="text-xs font-bold text-slate-500 mt-1 uppercase tracking-wide">
                           Startup_Inc • Bhilai
                         </p>
                       </div>
                     </div>
-
                     <div className="relative z-10 mt-5 flex justify-between items-end border-t-2 border-slate-100 pt-4">
                       <div>
                         <p className="text-[10px] text-slate-400 uppercase font-bold">
@@ -762,6 +748,7 @@ const CTA = () => {
 };
 
 // --- FOOTER ---
+// --- FOOTER (MOBILE OPTIMIZED) ---
 const Footer = () => {
   const redirectUrl = "https://chandrashekhar.life";
   const footerLinks = {
@@ -771,68 +758,51 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-black text-white pt-20 pb-10 border-t-4 border-black relative z-10">
-      <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-12 mb-16">
+    <footer className="bg-black text-white pt-16 pb-8 border-t-4 border-black relative z-10">
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+        
+        {/* Branding Column */}
         <div className="col-span-1 md:col-span-1">
-          {/* Logo in Footer */}
-          <a
-            href={redirectUrl}
-            className="flex items-center gap-2 mb-6 cursor-pointer"
-          >
-            <div className="w-8 h-8 bg-white border-2 border-white rounded flex items-center justify-center">
-              <Zap className="text-black fill-black" size={16} />
-            </div>
-            <span className="font-black text-xl tracking-tighter text-white">
-              SkillPulse.
-            </span>
+          <a href={redirectUrl} className="flex items-center gap-2 mb-4 cursor-pointer">
+             <div className="w-8 h-8 bg-white border-2 border-white rounded flex items-center justify-center">
+                <Zap className="text-black fill-black" size={16} />
+             </div>
+             <span className="font-black text-xl tracking-tighter text-white">SkillPulse.</span>
           </a>
-          <p className="text-slate-400 font-medium mb-6">
-            The operating system for your career. Local jobs, verified skills,
-            real results.
+          <p className="text-slate-400 font-medium mb-6 text-sm leading-relaxed">
+            The operating system for your career. We help you escape tutorial hell and get paid.
           </p>
           <div className="flex gap-4">
             {[Twitter, Github, Linkedin].map((Icon, i) => (
-              <a
-                key={i}
-                href={redirectUrl}
-                className="p-2 bg-white/10 rounded-lg hover:bg-blue-600 hover:text-white transition-all cursor-pointer border border-transparent hover:border-white"
-              >
-                <Icon size={20} />
+              <a key={i} href={redirectUrl} className="p-2 bg-white/10 rounded-lg hover:bg-blue-600 hover:text-white transition-all cursor-pointer border border-transparent hover:border-white">
+                <Icon size={18} />
               </a>
             ))}
           </div>
         </div>
 
-        {Object.entries(footerLinks).map(([category, links]) => (
-          <div key={category}>
-            <h4 className="font-bold text-lg mb-6 text-white uppercase tracking-wider">
-              {category}
-            </h4>
-            <ul className="space-y-4 text-slate-400 font-medium">
-              {links.map((link, j) => (
-                <li key={j}>
-                  <a
-                    href={redirectUrl}
-                    className="hover:text-blue-400 transition-colors cursor-pointer"
-                  >
-                    {link}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+        {/* Links: Uses Grid 2-cols on Mobile, 3-cols on Desktop */}
+        <div className="col-span-1 md:col-span-3 grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-4">
+            {Object.entries(footerLinks).map(([category, links]) => (
+              <div key={category}>
+                <h4 className="font-bold text-sm mb-4 text-white uppercase tracking-wider">{category}</h4>
+                <ul className="space-y-3 text-slate-400 font-medium text-sm">
+                  {links.map((link, j) => (
+                    <li key={j}>
+                      <a href={redirectUrl} className="hover:text-blue-400 transition-colors cursor-pointer">{link}</a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+        </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-slate-500 text-sm">
+      <div className="max-w-7xl mx-auto px-6 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-slate-500 text-xs gap-4">
         <p>© 2025 SkillPulse Inc. All rights reserved.</p>
-        <div className="flex gap-6 mt-4 md:mt-0">
-          <a href={redirectUrl} className="hover:text-white cursor-pointer">
-            Privacy Policy
-          </a>
-          <a href={redirectUrl} className="hover:text-white cursor-pointer">
-            Terms of Service
-          </a>
+        <div className="flex gap-6">
+          <a href={redirectUrl} className="hover:text-white cursor-pointer">Privacy Policy</a>
+          <a href={redirectUrl} className="hover:text-white cursor-pointer">Terms of Service</a>
         </div>
       </div>
     </footer>
