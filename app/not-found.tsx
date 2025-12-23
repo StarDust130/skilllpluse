@@ -2,19 +2,18 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Home, Construction, Terminal, Coffee } from "lucide-react";
+import { Home, Heart, Zap, Coffee } from "lucide-react";
 
 // --- REUSABLE COMPONENTS ---
 const NeuButton = ({ children, onClick, className = "" }: any) => (
   <motion.button
     onClick={onClick}
-    whileHover={{ y: -4, x: -2, boxShadow: "6px 6px 0px 0px #000" }}
+    whileHover={{ y: -4, x: -2, boxShadow: "4px 4px 0px 0px #000" }}
     whileTap={{ x: 2, y: 2, boxShadow: "2px 2px 0px 0px #000" }}
-    transition={{ type: "spring", stiffness: 400, damping: 15 }}
     className={`
-      relative px-8 py-4 text-lg font-black border-2 border-black rounded-xl cursor-pointer
+      relative w-full md:w-auto px-8 py-4 text-lg font-black border-2 border-black rounded-xl cursor-pointer
       shadow-[4px_4px_0px_0px_#000] flex items-center justify-center gap-3 tracking-wide
-      bg-yellow-400 text-black hover:bg-yellow-300
+      bg-black text-white hover:bg-slate-900
       ${className}
     `}
   >
@@ -34,96 +33,81 @@ const GrainOverlay = () => (
 
 export default function NotFound() {
   return (
-    <main className="relative min-h-screen flex flex-col justify-center items-center bg-[#fafafa] overflow-hidden selection:bg-yellow-400 selection:text-black">
+    <main className="relative min-h-screen flex flex-col justify-center items-center bg-[#f0f0f0] overflow-hidden p-6">
       <GrainOverlay />
 
-      {/* Background Grid */}
+      {/* Mobile-Friendly Background Grid */}
       <div
-        className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        className="absolute inset-0 opacity-[0.05] pointer-events-none"
         style={{
           backgroundImage:
             "linear-gradient(#000 2px, transparent 2px), linear-gradient(90deg, #000 2px, transparent 2px)",
-          backgroundSize: "40px 40px",
+          backgroundSize: "32px 32px",
         }}
       />
 
-      {/* Floating Chaos Elements */}
+      {/* Floating Icons (Animated) */}
+      <motion.div
+        animate={{ y: [-10, 10, -10] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-10 left-10 text-slate-300"
+      >
+        <Coffee size={48} />
+      </motion.div>
       <motion.div
         animate={{ rotate: 360 }}
         transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-        className="absolute top-10 right-10 md:right-40 opacity-10 pointer-events-none"
+        className="absolute bottom-10 right-10 text-slate-300"
       >
-        <Construction size={120} className="text-black" />
-      </motion.div>
-      <motion.div
-        animate={{ y: [10, -10, 10] }}
-        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-20 left-10 md:left-40 opacity-10 pointer-events-none"
-      >
-        <Coffee size={100} className="text-black" />
+        <Zap size={48} />
       </motion.div>
 
-      {/* Main Content Card */}
+      {/* Main Card */}
       <motion.div
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ type: "spring", stiffness: 200, damping: 20 }}
-        className="relative z-10 max-w-lg w-full mx-6 bg-white border-4 border-black p-8 rounded-2xl shadow-[12px_12px_0px_0px_#000] text-center"
+        initial={{ scale: 0.9, opacity: 0, y: 20 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        transition={{ type: "spring", stiffness: 300, damping: 25 }}
+        className="relative z-10 max-w-md w-full bg-white border-2 border-black p-6 md:p-10 rounded-3xl shadow-[8px_8px_0px_0px_#000] text-center"
       >
-        {/* Construction Tape */}
-        <div className="absolute -top-4 -left-4 bg-yellow-400 border-4 border-black px-4 py-1 transform -rotate-6 z-20 shadow-sm">
-          <span className="font-black text-xs uppercase tracking-widest">
-            WIP 🚧
+        {/* The Badge */}
+        <div className="inline-block bg-yellow-400 border-2 border-black px-4 py-1.5 rounded-full transform -rotate-2 mb-6 shadow-sm">
+          <span className="font-black text-xs md:text-sm uppercase tracking-widest text-black">
+            Hackathon Reality Check 🚧
           </span>
         </div>
 
-        {/* The Big 404 */}
-        <div className="relative mb-2">
-          <h1 className="text-8xl md:text-9xl font-black text-black tracking-tighter select-none leading-none">
-            404
-          </h1>
-          <p className="text-xl font-bold text-slate-400 -mt-2 mb-6 tracking-wide">
-            (Feature Not Found)
-          </p>
-        </div>
+        {/* Headline */}
+        <h1 className="text-5xl md:text-7xl font-black text-black tracking-tighter mb-4 leading-none">
+          404.
+        </h1>
 
-        {/* The Honest Truth */}
-        <div className="bg-black text-white p-4 rounded-xl border-2 border-black mb-6 transform rotate-1">
-          <h2 className="text-xl font-black uppercase mb-1 text-yellow-400">
-            Chill, Judges. ✋
-          </h2>
-          <p className="text-sm font-medium leading-relaxed opacity-90">
-            We literally didn't have time to build this part. We prioritized the
-            cool features.
-            <br />
-            <span className="italic text-slate-400 block mt-2">
-              "It's not a bug, it's a hackathon MVP."
-            </span>
-          </p>
-        </div>
+        <h2 className="text-xl md:text-2xl font-black text-black uppercase mb-4">
+          We Ran Out of Time 😭
+        </h2>
 
-        {/* Terminal Logs */}
-        <div className="bg-slate-100 border-2 border-slate-200 rounded-lg p-4 mb-8 text-left font-mono text-xs text-slate-600 overflow-hidden">
-          <div className="flex gap-2 mb-2">
-            <div className="w-3 h-3 rounded-full bg-red-500" />
-            <div className="w-3 h-3 rounded-full bg-yellow-500" />
-            <div className="w-3 h-3 rounded-full bg-green-500" />
-          </div>
-          <p className="text-slate-400">{">"} checking_deadline...</p>
-          <p className="text-red-500 font-bold">{">"} CRITICAL: 2 hours left</p>
-          <p>{">"} skipping_boring_pages.exe...</p>
-          <p className="text-blue-600 font-bold">
-            {">"} focus: building_cool_stuff_only 🚀
+        {/* The "Note" Body */}
+        <div className="bg-blue-50 p-4 md:p-6 rounded-xl border-2 border-blue-100 mb-8">
+          <p className="text-slate-700 font-bold text-sm md:text-base leading-relaxed">
+            Look, we prioritized the cool features over this page. We literally
+            coded this at 3 AM.
+          </p>
+          <div className="my-4 h-0.5 bg-blue-200 w-full rounded-full opacity-50" />
+          <p className="text-slate-900 font-black text-sm md:text-base italic">
+            "Please select us! The rest of the app actually works, we promise.
+            We love to build! ❤️"
           </p>
         </div>
 
         {/* Action Button */}
-        <div className="flex justify-center">
-          <Link href="/">
-            <NeuButton>
-              <Home size={20} /> Go Back to the Good Part
+        <div className="flex flex-col gap-3">
+          <Link href="/" className="w-full">
+            <NeuButton className="w-full">
+              <Home size={18} /> Go Back Home
             </NeuButton>
           </Link>
+          <p className="text-xs text-slate-400 font-bold mt-2 uppercase tracking-wide">
+            (Judges, please ignore this bug)
+          </p>
         </div>
       </motion.div>
     </main>
